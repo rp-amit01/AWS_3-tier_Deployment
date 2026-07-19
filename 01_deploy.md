@@ -54,4 +54,57 @@ ii. clone the project or source code from github repository
 
     git clone <repo-url>
 
-iii. 
+iii. Update/modify the ( application.properties ) file
+
+- db url
+- db username
+- db password
+
+          cd project/backend/src/main/resources/
+          vim application.properties
+
+iv. Build artifact ( Note : All Maven command runs in a directory where pom.xml file exits )
+
+          cd project/backend/
+          mvn clean package -dskipTests 
+
+v. Run the artifact 
+
+          cd project/backend/target/
+          java -jar < artifact name > 
+
+<ins>**STEP 5 : SETUP FRONTENT IN EC2 SERVER**</ins> 
+
+i. Install all software / packages needed like - npm , nodejs , apache etc .
+
+          apt update && apt install npm -y && apt install nodejs -y && apt install 
+
+ii. Update/ modify the ( .env ) file 
+- update public-ip of EC2 server 
+
+          cd project/frontend/ 
+          ls -a 
+          vim .env
+  
+iii. install node package modules ( Note : all npm command runs where .env exits ) 
+
+          cd project/frontend/ 
+          npm install 
+
+iv. build frontend artifact 
+
+          cd project/frontend/ 
+          npm run build 
+
+v. start and configure apache server 
+
+          systemctl start apache2
+          systemctl status apache2 
+          
+          cd project/frontend/ 
+          cp -rf dist/* /var/www/html
+
+<ins>**STEP 6 : Now your 3-tier is setup completed .**</ins>
+
+- Hit your <public-ip> in browser to see frontend / website
+   
