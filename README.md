@@ -19,16 +19,27 @@ Services are
 14. Cloudfront
 
 
-Combination of Services by we deploy 3 tier project  : - 
-1. EC2 + RDS
-2. VPC + EC2 + RDS
-3. IAM + VPC + EC2 + RDS
-4. EC2 + RDS + LB + CW + SNS_EB
-5. EC2 + RDS + LB + ASG + CW + SNS_EB
-6. VPC + EC2 + RDS + LB + ASG + CW + SNS_EB
-7. IAM + VPC + EC2 + RDS + LB + ASG + CW
-8. IAM + VPC + EC2 + RDS + LB + ASG + ROUTE53 + CW
-9. IAM + VPC + EC2 + RDS + LB + ASG + ROUTE53 + CF + CW
+Combination of Services by which we deploy 3 tier project in Cloud (AWS ) : - 
+
+01. EC2 + RDS  &emsp;  [( 01_deploy )] ( 01_deploy.md )
+
+02. VPC + EC2 + RDS  &emsp;  [( 02_deploy )] ( 02_deploy.md )
+
+03. IAM + VPC + EC2 + RDS  &emsp;  [( 03_deploy )] ( 03_deploy.md )
+
+04. EC2 + RDS + LB + CW + SNS_EB  &emsp;  [( 04_deploy )] ( 04_deploy.md )
+
+05. EC2 + RDS + LB + ASG + CW + SNS_EB
+
+06. VPC + EC2 + RDS + LB + ASG + CW + SNS_EB
+
+07. IAM + VPC + EC2 + RDS + LB + ASG + CW
+
+08. IAM + VPC + EC2 + RDS + LB + ASG + ROUTE53 + CW
+
+09. IAM + VPC + EC2 + RDS + LB + ASG + ROUTE53 + CF + CW
+
 10. IAM + VPC + EC2 + RDS + LB + ASG + ROUTE53 + CF + CW
+
 
 AND OTHER COMBINATION . 
