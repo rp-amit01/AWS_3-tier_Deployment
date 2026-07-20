@@ -23,7 +23,7 @@ Combination of Services by which we deploy 3 tier project in Cloud (AWS ) : -
 
 01. EC2 + RDS  &emsp;  [( 01_deploy )]( 01_deploy.md )
 
-02. VPC + EC2 + RDS  &emsp;  [( 02_deploy )]  02_deploy.md )
+02. VPC + EC2 + RDS  &emsp;  [( 02_deploy )](02_deploy.md )
 
 03. IAM + VPC + EC2 + RDS  &emsp;  [( 03_deploy )]( 03_deploy.md )
 
