@@ -18,23 +18,41 @@ Here we are deploying a 3 -teir project with the help of AWS services like , VPC
 
 i. create a new VPC
 
-ii. create two subnet inside a vpc :  private subnet and public subnet 
+ii. create two subnet inside a vpc :  
+
+- private subnet ( for RDS DB ) 
+- public subnet ( for instace server )
 
 
-<ins>**STEP 1 : CREATE DATABASE IN RDS**</ins>
 
-i. configure setting as your need , but here modify the VPC , VPC Security Group , DB subnet group .   
+
+
+<ins>**STEP 2 : CREATE DATABASE IN RDS**</ins>
+
+i. configure setting as your need , but here modify the networing setting like - 
+- VPC
+- VPC Security Group
+- DB subnet group    
           
-ii. after configuring DB , get the credentials value and copy or save it  - End point , username and password  of DB
+ii. after configuring DB , get the credentials value and copy or save it . 
+
+- End point of db
+- username of db
+- password of DB
 
 
-<ins>**STEP 2 : LANUCH INSTANCE SERVER FOR FRONTEND & BACKEND**</ins>
+<ins>**STEP 3 : LANUCH INSTANCE SERVER FOR FRONTEND & BACKEND**</ins>
 
-i. create instance with setting that you want , but modify or update the network like - VPC , subnet 
+i. create instance with setting that you want , but modify or update the network like 
+
+- VPC
+- subnet 
+
 
 ii. Connect the instance via ssh or any other method . 
 
-<ins>**STEP 3 : SETUP MYSQL CLIENT TO RUN SQL COMMAND OR MANAGE DB USING EC2 SERVER**</ins>
+
+<ins>**STEP 4 : SETUP MYSQL CLIENT TO RUN SQL COMMAND OR MANAGE DB USING EC2 SERVER**</ins>
 
 i. RUN THE COMMAND TO INSTALL PACKAGES OF NYSQL 
           
@@ -51,7 +69,8 @@ iii. Then create a database for project
 
 iv. Allow the port No 3306 to instance in Security Group ( inbound Rule )
 
-<ins>**STEP 4 : SETUP FOR BACKEND IN EC2 SERVER**</ins> 
+
+<ins>**STEP 5 : SETUP FOR BACKEND IN EC2 SERVER**</ins> 
 
 i. Install package - java , maven , git 
       
@@ -80,7 +99,8 @@ v. Run the artifact
           cd project/backend/target/
           java -jar < artifact name > 
 
-<ins>**STEP 5 : SETUP FRONTENT IN EC2 SERVER**</ins> 
+
+<ins>**STEP 6 : SETUP FRONTENT IN EC2 SERVER**</ins> 
 
 i. Install all software / packages needed like - npm , nodejs , apache etc .
 
@@ -110,6 +130,7 @@ v. start and configure apache server
           
           cd project/frontend/ 
           cp -rf dist/* /var/www/html
+
 
 <ins>**STEP 6 : Now your 3-tier is setup completed .**</ins>
 
