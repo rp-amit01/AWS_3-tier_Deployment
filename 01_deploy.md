@@ -14,18 +14,23 @@ Here we are deploying a 3 -teir project with the help of AWS services like , EC2
 
 ### So the steps are as follow : - 
 
+<br>
+
 <ins>**STEP 1 : CREATE DATABASE IN RDS**</ins>
 
 i. configure setting as your need .
           
 ii. after configuring DB , get the credentials value and copy or save it  - End point , username and password  of DB
 
+<br>
 
 <ins>**STEP 2 : LANUCH INSTANCE SERVER FOR FRONTEND & BACKEND**</ins>
 
 i. create instance with setting that you want .
 
 ii. Seup
+
+<br>
 
 <ins>**STEP 3 : SETUP MYSQL CLIENT TO RUN SQL COMMAND OR MANAGE DB USING EC2 SERVER**</ins>
 
@@ -43,6 +48,8 @@ iii. Then create a database for project
      3.  use <db-name> ;
 
 iv. Allow the port No 3306 to instance in Security Group ( inbound Rule )
+
+<br>
 
 <ins>**STEP 4 : SETUP FOR BACKEND IN EC2 SERVER**</ins> 
 
@@ -72,6 +79,8 @@ v. Run the artifact
 
           cd project/backend/target/
           java -jar < artifact name > 
+
+<br>
 
 <ins>**STEP 5 : SETUP FRONTENT IN EC2 SERVER**</ins> 
 
@@ -103,6 +112,8 @@ v. start and configure apache server
           
           cd project/frontend/ 
           cp -rf dist/* /var/www/html
+
+<br>
 
 <ins>**STEP 6 : Now your 3-tier is setup completed .**</ins>
 
