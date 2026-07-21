@@ -151,5 +151,5 @@ v. start and configure apache server
  
 <ins>**STEP 8 : Now your 3-tier is setup completed**</ins>
 
-- Hit your <public-ip> in browser to see frontend / website
+- Hit public-ip of server in browser to see frontend / website
    
