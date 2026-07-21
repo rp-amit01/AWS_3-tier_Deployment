@@ -1,7 +1,7 @@
-# **_3-teir deployment with - AWS VPC +  EC2 + RDS_**
+# **_3-teir deployment with - AWS VPC + EC2 + RDS + IAM_**
 
 
-Here we are deploying a 3 -teir project with the help of AWS services like , VPC , EC2 , RDS . 
+Here we are deploying a 3-teir project with the help of AWS services like , VPC , EC2 , RDS , IAM. 
 
 ---
 
@@ -41,12 +41,12 @@ ii. create two subnet inside a vpc :
  
 <ins>**STEP 3 : CREATE DATABASE IN RDS**</ins>
 
-i. configure setting as your need , but here modify the networing setting like - 
+i. configure setting as your need , but here modify the networking setting like - 
 - VPC
 - VPC Security Group
 - DB subnet group    
           
-ii. after configuring DB , get the credentials value and copy or save it . 
+ii. After configuring DB , get the credentials value and copy or save it . 
 
 - End point of db
 - username of db
