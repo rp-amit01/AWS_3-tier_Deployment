@@ -17,13 +17,15 @@ Here we are deploying a 3 -teir project with the help of AWS services like , VPC
 
 <ins>**STEP 1 : CREATE a STANDARD USER**</ins>
 
-i. create a standard user using IAM user .
+i. create a custom policy , in which we have to define permissions 
 
-ii. assign the permission to user in the form of roles .
+ii. then create a standard user using IAM user .
+
+iii. assign/attach the policy to user 
 
 #
-## Now Standard user do all the Next step from STEP2 TO STEP7 
-
+### Now Standard user do all the Next step from STEP2 TO STEP 8 
+# 
 <br>
 
 <ins>**STEP 2 : CREATE the network for building infrastructure**</ins>
@@ -147,7 +149,7 @@ v. start and configure apache server
 
  <br>
  
-<ins>**STEP 7 : Now your 3-tier is setup completed .**</ins>
+<ins>**STEP 8 : Now your 3-tier is setup completed**</ins>
 
 - Hit your <public-ip> in browser to see frontend / website
    
