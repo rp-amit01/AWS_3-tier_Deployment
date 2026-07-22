@@ -33,10 +33,9 @@ ii. After configuring DB , get the credentials value and copy or save it .
  
 <ins>**STEP 2 : LANUCH INSTANCE SERVER FOR FRONTEND & BACKEND**</ins>
 
-i. create instance with setting that you want , but modify or update the network like 
+i. create instance with setting that you want , but dont forget to add Metadata / bash script to install packages and setup all configuration .
 
-- VPC
-- subnet 
+
 
 
 ii. Connect the instance via ssh or any other method . 
