@@ -1,7 +1,7 @@
-# **_3-teir deployment with - AWS VPC + EC2 + RDS + IAM_**
+# **_3-teir deployment with - AWS EC2 + RDS + Load Balancer + Cloud Watch + SNS & Event Bridge**
 
 
-Here we are deploying a 3-teir project with the help of AWS services like , VPC , EC2 , RDS , IAM. 
+Here we are deploying a 3-teir project with the help of AWS services like EC2 , RDS , Load Balancer , Cloud Watch , SNS & Event Bridge. 
 
 ---
 
@@ -18,10 +18,7 @@ Here we are deploying a 3-teir project with the help of AWS services like , VPC 
  
 <ins>**STEP 1 : CREATE DATABASE IN RDS**</ins>
 
-i. configure setting as your need , but here modify the networking setting like - 
-- VPC
-- VPC Security Group
-- DB subnet group    
+i. configure setting as your need.
           
 ii. After configuring DB , get the credentials value and copy or save it . 
 
@@ -31,101 +28,130 @@ ii. After configuring DB , get the credentials value and copy or save it .
 
  <br>
  
-<ins>**STEP 2 : LANUCH INSTANCE SERVER FOR FRONTEND & BACKEND**</ins>
+<ins>**STEP 2 : LANUCH THREE ( 3 ) INSTANCE SERVER FOR FRONTEND & BACKEND WITH SAME CONFIGURATION**</ins>
 
-i. create instance with setting that you want , but dont forget to add Metadata / bash script to install packages and setup all configuration .
+i. create instance with setting that you want like 
 
+- Name
+- AMI
+- Instance Type
+- key pair
+- Networking - VPC , subnet , Security Group
 
-
-
-ii. Connect the instance via ssh or any other method . 
-
- <br>
+ but dont forget to add Userdata / bash script to install packages and setup all configuration .
  
-<ins>**STEP 5 : SETUP MYSQL CLIENT TO RUN SQL COMMAND OR MANAGE DB USING EC2 SERVER**</ins>
+ # 
+ ### Sample Bash Script 
+ #
 
-i. RUN THE COMMAND TO INSTALL PACKAGES OF NYSQL 
-          
-    apt update && apt install mysql-client -y
+    #!/bin/bash
+
+    # Update packages
+    apt update
     
-ii. Login to MYSQL
+    # Install required packages
+    apt install -y mariadb-client git nodejs npm apache2 openjdk-17-jdk maven
+    
+    # -------------------------------
+    # Create Database in RDS
+    # -------------------------------
+    
+    mysql -h database-1.cr0ygqq8gcfw.ap-southeast-2.rds.amazonaws.com \
+    -u admin \
+    -pDubai123 <<EOF
+    
+    CREATE DATABASE IF NOT EXISTS studentdb;
+    USE studentdb;
+    
+    EOF
+    
+    # -------------------------------
+    # Clone Project
+    # -------------------------------
+    
+    cd /root
+    git clone https://github.com/SanjayTomar22/EasyCRUD.git
+    
+    # -------------------------------
+    # Frontend Setup
+    # -------------------------------
+    
+    cd /root/EasyCRUD/frontend
+    
+    PUBLIC_IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)
+    
+    cat > .env <<EOF
+    VITE_API_URL=http://${PUBLIC_IP}:8080/api
+    EOF
+    
+    npm install
+    npm run build
+    
+    systemctl enable apache2
+    systemctl start apache2
+    
+    cp -r dist/* /var/www/html/
+    
+    # -------------------------------
+    # Backend Configuration
+    # -------------------------------
+    
+    cd /root/EasyCRUD/backend/src/main/resources
+    
+    cat >> application.properties <<EOF
+    
+    server.port=8080
+    spring.datasource.url=jdbc:mariadb://database-1.cr0ygqq8gcfw.ap-southeast-2.rds.amazonaws.com:3306/studentdb
+    spring.datasource.username=admin
+    spring.datasource.password=Dubai123
+    spring.jpa.hibernate.ddl-auto=update
+    spring.jpa.show-sql=true
+    
+    EOF
+    
+    # -------------------------------
+    # Build Backend
+    # -------------------------------
+    
+    cd /root/EasyCRUD/backend
+    
+    mvn clean package -DskipTests
+    
+    # -------------------------------
+    # Run Spring Boot
+    # -------------------------------
+    
+    cd target
+    
+    java -jar student-registration-backend-0.0.1-SNAPSHOT.jar
 
-      mysql -h <your ENDPOINT of DB> -u <admin name> -p<password of db>
-iii. Then create a database for project 
 
-     1.  show databases ;
-     2.  create database <db-name> ;
-     3.  use <db-name> ;
+<ins>**STEP 3 : Setup or create Load Balancer ( Here we use Classic LoadBalancer )**</ins>
 
-iv. Allow the port No 3306 to instance in Security Group ( inbound Rule )
+i. open the Load balancer page -> select Classic Load Balancer 
 
- <br>
- 
-<ins>**STEP 6 : SETUP FOR BACKEND IN EC2 SERVER**</ins> 
+ii. fill the details like - 
 
-i. Install package - java , maven , git 
-      
-      apt update && apt install openjdk-17-jdk -y && apt install maven -y && apt install git 
+- Name
+- Select Scheme ( internet facing )
+- Networking ( select VPC , tick all 3 Subnet , select security group )
+- instance ( select instances that you want to add )
 
-ii. clone the project or source code from github repository 
+iii. click on " create LB "
 
-    git clone <repo-url>
+iv. Now get the "DNS Name" of Load Balancer from : LoadBalancer -> your LB -> details -> DNS Name
 
-iii. Update/modify the ( application.properties ) file
+<ins>**STEP 4 : create a Dashboard in CloudWatch for Monitoring Resources**</ins>
 
-- db url
-- db username
-- db password
+i. create dashboard 
 
-          cd project/backend/src/main/resources/
-          vim application.properties
+ii. add metrics , then monitor resources 
 
-iv. Build artifact ( Note : All Maven command runs in a directory where pom.xml file exits )
 
-          cd project/backend/
-          mvn clean package -dskipTests 
+<ins>**STEP 5 : Set up Email Notification Feature using SNS and EventBridge**</ins>
 
-v. Run the artifact 
+i. create topic in SNS 
 
-          cd project/backend/target/
-          java -jar < artifact name > 
+ii. create subscription inside Topic
 
- <br>
- 
-<ins>**STEP 7 : SETUP FRONTENT IN EC2 SERVER**</ins> 
-
-i. Install all software / packages needed like - npm , nodejs , apache etc .
-
-          apt update && apt install npm -y && apt install nodejs -y && apt install 
-
-ii. Update/ modify the ( .env ) file 
-- update public-ip of EC2 server 
-
-          cd project/frontend/ 
-          ls -a 
-          vim .env
-  
-iii. install node package modules ( Note : all npm command runs where .env exits ) 
-
-          cd project/frontend/ 
-          npm install 
-
-iv. build frontend artifact 
-
-          cd project/frontend/ 
-          npm run build 
-
-v. start and configure apache server 
-
-          systemctl start apache2
-          systemctl status apache2 
-          
-          cd project/frontend/ 
-          cp -rf dist/* /var/www/html
-
- <br>
- 
-<ins>**STEP 8 : Now your 3-tier is setup completed**</ins>
-
-- Hit public-ip of server in browser to see frontend / website
-   
+iii. Then go to Event Bridge Service , and create Rule 
