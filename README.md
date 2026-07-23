@@ -29,17 +29,17 @@ Combination of Services by which we deploy 3 tier project in Cloud (AWS ) : -
 
 04. EC2 + RDS + LB + CW + SNS_EB  &emsp;  [( 04_deploy )]( 04_deploy.md )
 
-05. EC2 + RDS + LB + ASG + CW + SNS_EB
+05. EC2 + LB + ASG + CW + SNS_EB   &emsp;  [( 05_deploy )]( 05_deploy.md )
 
-06. VPC + EC2 + RDS + LB + ASG + CW + SNS_EB
+06. VPC + EC2 + LB + ASG + CW + SNS_EB   &emsp;  [( 06_deploy )]( 06_deploy.md )
 
-07. IAM + VPC + EC2 + RDS + LB + ASG + CW
+07. IAM + VPC + EC2 + LB + ASG + CW  &emsp;  [( 07_deploy )]( 07_deploy.md )
 
-08. IAM + VPC + EC2 + RDS + LB + ASG + ROUTE53 + CW
+08. IAM + VPC + EC2 + LB + ASG + ROUTE53 + CW  &emsp;  [( 08_deploy )]( 08_deploy.md )
 
-09. IAM + VPC + EC2 + RDS + LB + ASG + ROUTE53 + CF + CW
+09. IAM + VPC + EC2 + LB + ASG + ROUTE53 + CF + CW    &emsp;  [( 09_deploy )]( 09_deploy.md ) 
 
-10. IAM + VPC + EC2 + RDS + LB + ASG + ROUTE53 + CF + CW
+10. IAM + VPC + EC2 + LB + ASG + ROUTE53 + CF + CW   &emsp;  [( 10_deploy )]( 10_deploy.md )
 
 
 AND OTHER COMBINATION . 
